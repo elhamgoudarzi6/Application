@@ -1,22 +1,45 @@
 import React, { Component } from 'react';
-import { StatusBar, Text, View, StyleSheet, Animated, Easing } from 'react-native';
+import { StatusBar, Text, View, Platform, StyleSheet, Animated, Easing } from 'react-native';
+import { Dialog } from 'react-native-simple-dialogs';
+import NetInfo from "@react-native-community/netinfo";
+import { IconOutline } from "@ant-design/icons-react-native";
 
 export default class Splash extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            dialogVisible: false,
+        }
         this.animatedValue1 = new Animated.Value(0);
         this.animatedValue2 = new Animated.Value(0);
         this.animatedValue3 = new Animated.Value(0);
+        this.CheckConnectivity();
     }
 
     componentDidMount() {
+        this.CheckConnectivity();
         this.animate();
-        this.splash();
     }
 
-    splash() {
-        setTimeout(() => { this.props.navigation.navigate('Dashboard') }, 2000);
-    }
+
+    CheckConnectivity = () => {
+        NetInfo.fetch().then(state => {
+            console.log("Connection type", state.type);
+            console.log("Is connected?", state.isConnected);
+            if (!state.isConnected) {
+                this.setState({ dialogVisible: true });
+            } else {
+                setTimeout(() => { this.props.navigation.navigate('Dashboard') }, 2000);
+            }
+        });
+        NetInfo.refresh().then(state => {
+            if (!state.isConnected) {
+                this.setState({ dialogVisible: true });
+            } else {
+                setTimeout(() => { this.props.navigation.navigate('Dashboard') }, 2000);
+            }
+        });
+    };
 
     animate() {
         this.animatedValue1.setValue(0);
@@ -59,6 +82,15 @@ export default class Splash extends Component {
                     {/* <Animated.View style={{ transform: [{ scale: scale }] }}> */}
                     <Text style={styles.text}>پتوس</Text>
                 </Animated.View>
+                <Dialog
+                    visible={this.state.dialogVisible}
+                    dialogStyle={styles.dialogStyle}
+                    onTouchOutside={() => this.setState({ dialogVisible: false })}>
+                    <View style={{ marginTop: -5, alignSelf: 'center' }}>
+                        <IconOutline name="wifi" color='#999' size={45} style={{ textAlign: "center", }} />
+                        <Text style={styles.textDialog}>اتصال اینترنت برقرار نیست</Text>
+                    </View>
+                </Dialog>
             </View>
         )
     }
@@ -75,5 +107,16 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 50,
         fontFamily: 'Ghonche',
-    }
+    },
+    dialogStyle: {
+        borderRadius: 5,
+        alignSelf: 'center',
+        width: '80%'
+    },
+    textDialog: {
+        textAlign: "center",
+        fontFamily: 'Dana-FaNum-Medium',
+        marginTop: 10,
+        color: '#444'
+    },
 });

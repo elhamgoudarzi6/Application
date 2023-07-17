@@ -1,9 +1,9 @@
 import React, { Component, useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 const Tab = createMaterialTopTabNavigator();
 
-function RentScreen() {
+const RentScreen = () => {
   const [text, setText] = useState('');
   return (
     <View style={styles.container}>
@@ -68,7 +68,7 @@ function RentScreen() {
   );
 }
 
-function SellScreen() {
+const SellScreen = () => {
   const [text, setText] = useState('');
   return (
     <View style={styles.container}>
@@ -143,37 +143,23 @@ function MyTabs() {
         tabBarLabelStyle: { fontSize: 14, fontFamily: "Dana-FaNum-Bold", },
         tabBarActiveTintColor: '#01A545',
         tabBarInactiveTintColor: '#999',
-        tabBarPressColor: '#fcfcfc',
-        tabBarSelectedItemStyle: {
-          borderBottomWidth: 2,
-          borderBottomColor: '#01A545',
-        },
-      }}
-    >
+        tabBarPressColor: '#fefefe',
+        tabBarIndicatorStyle: {
+          backgroundColor: '#01A545',
+        }
+      }}>
       <Tab.Screen name="اجاره" component={RentScreen} />
       <Tab.Screen name="فروش" component={SellScreen} />
     </Tab.Navigator>
   );
 }
 
-export default class AddProperty extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    }
-  }
-
-  componentDidMount() {
-  }
-
-  render() {
-    return (
-      <View style={{ marginTop: 20, flex: 1 }}>
-        <MyTabs />
-      </View>
-    );
-  }
+export default function AddProperty() {
+  return (
+    <View style={{ marginTop: 20, flex: 1 }}>
+      <MyTabs />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

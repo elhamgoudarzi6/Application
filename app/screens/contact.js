@@ -24,8 +24,8 @@ export default class Contact extends Component {
             agentNumber: '+989168509003',
             whatsAppMsg: "سلام من در سوال دارم",
             support: [
-                { id: 1, title: 'راه های ارتباطی', data: [{ id: 0, title: 'pethos.app', icon: 'send-o' }, { id: 1, title: 'pethos.app', icon: 'instagram' }, { id: 2, title: 'info@pethos.app', icon: 'envelope-o' }, { id: 3, title: 'https://pethos.app', icon: 'chrome' }] },
-                { id: 2, title: 'آدرس ما', data: [{ id: 0, title: 'لرستان خرم آباد خیابان انقلاب املاک سرمایه', icon: 'map-marker' }] }
+                { id: 1, title: 'راه های ارتباطی', data: [{ id: 0, title: 'pethos.app', icon: 'send' }, { id: 1, title: 'pethos.app', icon: 'instagram' }, { id: 2, title: 'info@pethos.app', icon: 'mail' }, { id: 3, title: 'https://pethos.app', icon: 'chrome' }] },
+                { id: 2, title: 'آدرس ما', data: [{ id: 0, title: 'لرستان خرم آباد خیابان انقلاب املاک سرمایه', icon: 'shop' }] }
             ]
         };
     }
@@ -96,7 +96,7 @@ export default class Contact extends Component {
                     <View style={styles.section}>
                         <View style={{ marginTop: 5 }}>
                             <Text style={styles.header}>با ما در ارتباط باشید</Text>
-                            <Text style={styles.paragraph}>املاک پتوس جهت هرگونه پرسش، انتقاد و پیشنهاد همیشه به روی شما باز است</Text>
+                            <Text style={styles.paragraph}>اپلیکیشن پتوس جهت هرگونه پرسش، انتقاد و پیشنهاد همیشه به روی شما باز است</Text>
                         </View>
                         <View style={{ marginTop: 10 }}>
                             <TextInput
@@ -107,6 +107,7 @@ export default class Contact extends Component {
                                 placeholder="نام و نام خانوادگی"
                                 value={this.state.name}
                                 style={styles.textInput}
+                                tintColor={'#01A545'}
                             />
                             <TextInput
                                 onChangeText={text => this.setState({ email: text })}
@@ -157,7 +158,7 @@ export default class Contact extends Component {
                     <View style={styles.section}>
                         <View style={{ marginTop: 5 }}>
                             <Text style={styles.header}>تماس با ما</Text>
-                            <Text style={styles.paragraph}>املاک پتوس جهت هرگونه پرسش، انتقاد و پیشنهاد همیشه به روی شما باز است</Text>
+                            <Text style={styles.paragraph}>اپلیکیشن پتوس جهت هرگونه پرسش، انتقاد و پیشنهاد همیشه به روی شما باز است</Text>
                         </View>
 
                         <Text style={styles.titleTouchable}>راهنما</Text>
@@ -181,11 +182,14 @@ export default class Contact extends Component {
                             renderItem={({ item }) =>
                                 <View style={styles.sectionItem}>
                                     <Text style={styles.item}>{item.title} </Text>
-                                    <Icon name={item.icon} color='#777' size={25} style={{ color: '#777', marginRight: 5 }} />
+                                    <IconOutline name={item.icon} color='#777' size={27} style={{ textAlign: "center", }} />
+
+                                    {/* <Icon name={item.icon} color='#777' size={25} style={{ color: '#777', marginRight: 5 }} /> */}
                                 </View>
                             }
                             renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title}</Text>}
                             keyExtractor={(item) => { return item.id }}
+                            stickySectionHeadersEnabled
                         />
                     </View>
                     <TouchableOpacity style={{ backgroundColor: '#01A545', paddingVertical: 5, paddingHorizontal: 25 }} activeOpacity={0.9} onPress={() => Linking.openURL('https://apprad.ir')}>
